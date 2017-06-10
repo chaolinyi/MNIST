@@ -1,30 +1,39 @@
 import tensorflow as tf
 import input_data
-mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
-# regression model
-x = tf.placeholder("float", [None, 784])
-W = tf.Variable(tf.zeros([784,10]))
-b = tf.Variable(tf.zeros([10]))
-y = tf.nn.softmax(tf.matmul(x,W) + b)
+class MNIST:
+  def __init__(self, dir):
+    self.mnist = input_data.read_data_sets(dir, one_hot=True)
 
-# training model
-y_ = tf.placeholder("float", [None,10])
+  def mnist_softmax(self, x_pixels, y_pixels, classify_numbers):
+    imag_pixels = x_pixels * y_pixels
+    # regression model
+    self.x = tf.placeholder("float", [None, imag_pixels])
+    self.W = tf.Variable(tf.zeros([imag_pixels,classify_numbers]))
+    self.b = tf.Variable(tf.zeros([classify_numbers]))
+    self.y = tf.nn.softmax(tf.matmul(self.x,self.W) + self.b)
 
-cross_entropy = -tf.reduce_sum(y_*tf.log(y))
+    # training model
+    learning_rate = 0.01
+    self.y_ = tf.placeholder("float", [None,classify_numbers])
+    cross_entropy = -tf.reduce_sum(self.y_*tf.log(self.y))
+    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)
 
-train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
+    init = tf.initialize_all_variables()
+    self.sess = tf.Session()
+    self.sess.run(init)
 
-init = tf.initialize_all_variables()
+    for i in range(1000):
+      batch_xs, batch_ys = self.mnist.train.next_batch(100)
+      self.sess.run(train_step, feed_dict={self.x: batch_xs, self.y_: batch_ys})
 
-sess = tf.Session()
-sess.run(init)
+  def mnist_evaluate(self):
+    # evaluate my model
+    correct_prediction = tf.equal(tf.argmax(self.y,1), tf.argmax(self.y_,1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+    print self.sess.run(accuracy, feed_dict={self.x: self.mnist.test.images, self.y_: self.mnist.test.labels})
 
-for i in range(1000):
-  batch_xs, batch_ys = mnist.train.next_batch(100)
-  sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
-
-# evaluate my model
-correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-print sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels})
+if __name__ == "__main__":
+  ministInstance = MNIST("MNIST_data/")
+  ministInstance.mnist_softmax(28, 28, 10)
+  ministInstance.mnist_evaluate()
