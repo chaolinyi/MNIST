@@ -34,7 +34,7 @@ def maybe_download(filename, work_directory):
   return filepath
 def _read32(bytestream):
   dt = numpy.dtype(numpy.uint32).newbyteorder('>')
-  return numpy.frombuffer(bytestream.read(4), dtype=dt)
+  return numpy.frombuffer(bytestream.read(4), dtype=dt)[0]
 def extract_images(filename):
   """Extract the images into a 4D uint8 numpy array [index, y, x, depth]."""
   print('Extracting', filename)
@@ -73,6 +73,7 @@ def extract_labels(filename, one_hot=False):
           'Invalid magic number %d in MNIST label file: %s' %
           (magic, filename))
     num_items = _read32(bytestream)
+    print('num_items : ', num_items)
     buf = bytestream.read(num_items)
     labels = numpy.frombuffer(buf, dtype=numpy.uint8)
     if one_hot:
@@ -168,4 +169,4 @@ def read_data_sets(train_dir, fake_data=False, one_hot=False):
 if __name__ == "__main__":
   TRAIN_LABELS = 'train-labels-idx1-ubyte.gz'
   local_file = maybe_download(TRAIN_LABELS, "MNIST_data/")
-  train_images = extract_images(local_file)
+  train_images = extract_labels(local_file, one_hot=True)
