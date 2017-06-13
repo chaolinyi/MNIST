@@ -3,8 +3,8 @@ python:
   - "2.7"
 install: 
   - sudo pip install --upgrade virtualenv
-  - virtualenv --system-site-packages 
-  - cd 
+  - virtualenv --system-site-packages /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
+  - cd /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
   - source bin/activate
   - pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
   - cd /tmp
