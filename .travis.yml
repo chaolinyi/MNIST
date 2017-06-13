@@ -2,7 +2,6 @@ language: python
 python:
   - "2.7"
 install: 
-  - pwd
   - sudo pip install --upgrade virtualenv
   - virtualenv --system-site-packages /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
   - cd /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
@@ -17,5 +16,6 @@ install:
   - ar p ../libc6-dev_2.17-0ubuntu5_amd64.deb data.tar.gz | tar zx
   - cd -
   - LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/
+  - cd chaolinyi/MNIST
 script: 
   - python mnist.py
