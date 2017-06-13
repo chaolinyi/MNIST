@@ -2,6 +2,7 @@ language: python
 python:
   - "2.7"
 install: 
+  - pwd
   - sudo pip install --upgrade virtualenv
   - virtualenv --system-site-packages /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
   - cd /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
