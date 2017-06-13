@@ -16,7 +16,6 @@ install:
   - ar p ../libc6-dev_2.17-0ubuntu5_amd64.deb data.tar.gz | tar zx
   - cd -
   - LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/
-  - find /home -name chaolinyi
-  - cd home/chaolinyi/MNIST
+  - cd /home/travis/build/chaolinyi/MNIST
 script: 
   - python mnist.py
