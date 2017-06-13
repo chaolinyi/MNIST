@@ -17,7 +17,7 @@ install:
   - cd -
   - find / -name python
   - find / -name convolutional.py
-  - LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/ /tmp/libc6_2.17/lib/x86_64-linux-gnu/ld-2.17.so
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/tmp/libc6_2.17/lib/x86_64-linux-gnu/:/tmp/libc6_2.17/lib/x86_64-linux-gnu/ld-2.17.so
   - cd /home/travis/build/chaolinyi/MNIST
 script: 
   - python mnist.py
