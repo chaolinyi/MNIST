@@ -17,7 +17,7 @@ install:
   - cd -
   - ls /tmp/libc6_2.17/lib/x86_64-linux-gnu/ -al
   - ls /lib/x86_64-linux-gnu/ -al
-  - LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/
+  - export LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/
   - export
   - cd /home/travis/build/chaolinyi/MNIST
 script: 
