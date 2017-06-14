@@ -7,6 +7,7 @@ install:
   - cd /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/tensorflow
   - source bin/activate
   - pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
+  # cause travis-ci env is ubuntu12.04LTS with glibc(libc2.15), tensorflow needs libc2.17. So install tmp libc2.17 
   - cd /tmp
   - wget http://launchpadlibrarian.net/137699828/libc6_2.17-0ubuntu5_amd64.deb
   - wget http://launchpadlibrarian.net/137699829/libc6-dev_2.17-0ubuntu5_amd64.deb
@@ -14,11 +15,11 @@ install:
   - cd libc6_2.17
   - ar p ../libc6_2.17-0ubuntu5_amd64.deb data.tar.gz | tar zx
   - ar p ../libc6-dev_2.17-0ubuntu5_amd64.deb data.tar.gz | tar zx
-  - cd -
-  - ls /tmp/libc6_2.17/lib/x86_64-linux-gnu/ -al
-  - ls /lib/x86_64-linux-gnu/ -al
+  #- cd -
+  #- ls /tmp/libc6_2.17/lib/x86_64-linux-gnu/ -al
+  #- ls /lib/x86_64-linux-gnu/ -al
   - export LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/
-  - export
-  - cd /home/travis/build/chaolinyi/MNIST
 script: 
+  # project root dir
+  - cd /home/travis/build/chaolinyi/MNIST
   - python mnist.py
