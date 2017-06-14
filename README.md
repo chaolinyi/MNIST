@@ -1,3 +1,6 @@
+### Travis-CI Building Status
+[![Build Status](https://travis-ci.org/chaolinyi/MNIST.png)](https://travis-ci.org/chaolinyi/MNIST)
+
 # MNIST
 Some Exercises in Learning Google's TensorFlow
 
