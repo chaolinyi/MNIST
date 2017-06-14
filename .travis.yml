@@ -17,6 +17,7 @@ install:
   - cd -
   - ls /tmp/libc6_2.17/lib/x86_64-linux-gnu/ -al
   - ls /lib/x86_64-linux-gnu/ -al
+  - sudo cp -rf /tmp/libc6_2.17/lib/x86_64-linux-gnu/* /lib/x86_64-linux-gnu/
   - cd /home/travis/build/chaolinyi/MNIST
 script: 
   - python mnist.py
