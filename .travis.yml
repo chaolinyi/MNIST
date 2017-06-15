@@ -19,7 +19,4 @@ install:
   #- ls /tmp/libc6_2.17/lib/x86_64-linux-gnu/ -al
   #- ls /lib/x86_64-linux-gnu/ -al
   - export LD_LIBRARY_PATH=/tmp/libc6_2.17/lib/x86_64-linux-gnu/
-script: 
-  # project root dir
-  - cd /home/travis/build/chaolinyi/MNIST
-  - python mnist.py
+script: buildci.sh
